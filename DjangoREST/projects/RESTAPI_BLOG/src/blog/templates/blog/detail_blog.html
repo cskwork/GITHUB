@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style type="text/css">
+	
+	.card {
+		max-width: 700px;
+	}
+
+	.container{
+		padding: 20px;
+	}
+</style>
+
+
+<div class="container">
+	<div class="row">
+		
+		<!-- Blog post -->
+		<div class="card m-auto">
+			{% if blog_post.image.url != None %}
+				<img class="card-img-top" src="{{blog_post.image.url}}">
+			{% endif %}
+			<div class="card-body my-2">
+				<h2 class="card-title">{{blog_post.title}}</h2>
+				<p class="card-text">{{blog_post.body|linebreaksbr}}</p>
+				<p>
+					{% if blog_post.author == request.user %}
+						<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">수정</a>
+					{% endif %}
+				</p>
+				
+			</div>
+			<div class="card-footer text-muted">
+				수정일 {{blog_post.date_updated}} - {{blog_post.author}}
+			</div>
+		</div>
+		<!-- end Blog post -->
+
+	</div>
+</div>
+
+{% endblock content %}
